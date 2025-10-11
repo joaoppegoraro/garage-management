@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: estapar-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=estapar_garage
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  simulator:
+    image: cfontes0estapar/garage-sim:1.0.0
+    container_name: estapar-simulator
+    network_mode: "host"
+    depends_on:
+      - mysql
+volumes:
+  mysql-data:
